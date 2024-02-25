@@ -56,3 +56,23 @@ export async function logout(token: string) {
     ok: resp.ok,
   };
 }
+
+export async function verifyEmail(searchParams: string, token: string) {
+  const resp = await fetch(`${baseUrl}/api/verify-email${searchParams}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const json = await resp.json();
+
+  console.log(json);
+
+  return {
+    ok: resp.ok,
+    message: json.message,
+  };
+}

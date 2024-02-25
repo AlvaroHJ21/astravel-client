@@ -17,6 +17,7 @@ import AppLayout from '../layout/AppLayout.astro';
 
     if (resp.ok) {
       authStore.login(resp.data, resp.token);
+      location.href = '/';
     } else {
       console.log('error');
     }

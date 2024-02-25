@@ -28,10 +28,8 @@
     const $btnLogout = document.getElementById('btn-logout') as HTMLButtonElement;
     $btnLogout.onclick = async () => {
       const resp = await api.logout(authStore.$state.get()?.token!);
-      if (resp.ok) {
-        authStore.logout();
-        location.href = '/login';
-      }
+      authStore.logout();
+      location.href = '/login';
     };
   }
 </script>
@@ -40,7 +38,7 @@
   <div class="container">
     <nav class="">
       <ul>
-        <li><a href="">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="about">About</a></li>
         <li><a href="contact">Contact</a></li>
         <li>
