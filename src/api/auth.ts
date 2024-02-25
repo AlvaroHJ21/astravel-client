@@ -76,3 +76,38 @@ export async function verifyEmail(searchParams: string, token: string) {
     message: json.message,
   };
 }
+
+export async function sendEmailResetPassword(email: string) {
+  const resp = await fetch(`${baseUrl}/api/password-email`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({ email }),
+  });
+
+  const json = await resp.json();
+
+  console.log(json);
+}
+
+export async function resetPassword(searchParams: string, password: string) {
+  const resp = await fetch(`${baseUrl}/api/password-reset${searchParams}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({ password }),
+  });
+
+  const json = await resp.json();
+
+  console.log(json);
+
+  return {
+    ok: resp.ok,
+    message: json.message,
+  };
+}
