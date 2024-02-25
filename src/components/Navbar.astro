@@ -1,0 +1,64 @@
+---
+
+---
+
+<script>
+  import * as authStore from '../store/auth';
+  import * as api from '../api/auth';
+  const user = authStore.$state.get()?.user;
+
+  if (user) {
+    const $login = document.querySelector('a[href="login"]') as HTMLAnchorElement;
+    const $register = document.querySelector('a[href="register"]') as HTMLAnchorElement;
+
+    const $menuList = document.querySelector('.navbar nav ul') as HTMLUListElement;
+
+    $menuList.removeChild($login.parentNode!);
+    $menuList.removeChild($register.parentNode!);
+
+    const $profile = document.createElement('li');
+    $profile.innerHTML = `<span>${user.name}</span>`;
+
+    const $logout = document.createElement('li');
+    $logout.innerHTML = `<button id="btn-logout" class="btn">Logout</button>`;
+
+    $menuList.appendChild($profile);
+    $menuList.appendChild($logout);
+
+    const $btnLogout = document.getElementById('btn-logout') as HTMLButtonElement;
+    $btnLogout.onclick = async () => {
+      const resp = await api.logout(authStore.$state.get()?.token!);
+      if (resp.ok) {
+        authStore.logout();
+        location.href = '/login';
+      }
+    };
+  }
+</script>
+
+<header class="navbar">
+  <div class="container">
+    <nav class="">
+      <ul>
+        <li><a href="">Home</a></li>
+        <li><a href="about">About</a></li>
+        <li><a href="contact">Contact</a></li>
+        <li>
+          <a href="login">Login</a>
+        </li>
+        <li>
+          <a href="register">Register</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .navbar {
+    nav ul {
+      display: flex;
+      gap: 20px;
+    }
+  }
+</style>

@@ -1,0 +1,42 @@
+---
+import AppLayout from '../layout/AppLayout.astro';
+---
+
+<script>
+  import * as authApi from '../api/auth';
+  import * as authStore from '../store/auth';
+  const $form = document.querySelector('form');
+
+  $form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData($form);
+    const data = Object.fromEntries(formData.entries());
+
+    const resp = await authApi.login(data as any);
+
+    if (resp.ok) {
+      authStore.login(resp.data, resp.token);
+      location.href = '/';
+    } else {
+      console.log(resp.errors);
+    }
+  });
+</script>
+
+<AppLayout>
+  <section class="container">
+    <h1>Login</h1>
+    <form>
+      <div class="field">
+        <label for="">Email</label>
+        <input type="text" name="email" />
+      </div>
+      <div class="field">
+        <label for="">Password</label>
+        <input type="password" name="password" />
+      </div>
+
+      <button class="btn">Login</button>
+    </form>
+  </section>
+</AppLayout>
