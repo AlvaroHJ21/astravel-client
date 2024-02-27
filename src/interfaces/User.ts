@@ -8,6 +8,7 @@ export interface RegisterUserDto {
   name: string;
   email: string;
   password: string;
+  password_confirmation: string;
   document: string;
   country: string;
   phone: string;
@@ -17,4 +18,5 @@ export interface RegisterUserDto {
 export interface LoginUserDto {
   email: string;
   password: string;
+  remember: boolean;
 }

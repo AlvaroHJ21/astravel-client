@@ -10,7 +10,9 @@ import AppLayout from '../layout/AppLayout.astro';
   $form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData($form);
-    const data = Object.fromEntries(formData.entries());
+    const data: any = Object.fromEntries(formData.entries());
+
+    data['remember'] = data.remember === 'on';
 
     const resp = await authApi.login(data as any);
 
@@ -35,9 +37,14 @@ import AppLayout from '../layout/AppLayout.astro';
         <label for="">Password</label>
         <input type="password" name="password" />
       </div>
-
+      <div class="flex justify-between">
+        <label>
+          <input type="checkbox" name="remember" />
+          Recordar
+        </label>
+        <a href="/password-send">¿Olvidaste tu contraseña?</a>
+      </div>
       <button class="btn">Login</button>
-      <a href="/password-send">¿Olvidaste tu contraseña?</a>
     </form>
   </section>
 </AppLayout>

@@ -13,6 +13,8 @@ export async function login(loginUserDto: LoginUserDto) {
   });
   const json = await resp.json();
 
+  console.log(json);
+
   return {
     ok: resp.ok,
     data: json.data,
@@ -32,6 +34,8 @@ export async function register(registerUserDto: RegisterUserDto) {
     body: JSON.stringify(registerUserDto),
   });
   const json = await resp.json();
+
+  console.log(json);
 
   return {
     ok: resp.ok,
@@ -92,14 +96,14 @@ export async function sendEmailResetPassword(email: string) {
   console.log(json);
 }
 
-export async function resetPassword(searchParams: string, password: string) {
+export async function resetPassword(searchParams: string, resetPasswordDto: any) {
   const resp = await fetch(`${baseUrl}/api/password-reset${searchParams}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
-    body: JSON.stringify({ password }),
+    body: JSON.stringify(resetPasswordDto),
   });
 
   const json = await resp.json();
