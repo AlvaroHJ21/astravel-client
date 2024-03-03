@@ -27,7 +27,7 @@
 
     const $btnLogout = document.getElementById('btn-logout') as HTMLButtonElement;
     $btnLogout.onclick = async () => {
-      const resp = await api.logout(authStore.$state.get()?.token!);
+      await api.logout(authStore.$state.get()?.token!);
       authStore.logout();
       location.href = '/login';
     };
