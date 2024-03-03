@@ -13,8 +13,12 @@
 
     const $menuList = document.querySelector('.navbar nav ul') as HTMLUListElement;
 
-    $menuList.removeChild($login.parentNode!);
-    $menuList.removeChild($register.parentNode!);
+    if ($login && $login.parentNode) {
+      $menuList.removeChild($login.parentNode);
+    }
+    if ($register && $register.parentNode) {
+      $menuList.removeChild($register.parentNode);
+    }
 
     const $profile = document.createElement('li');
     $profile.innerHTML = `<span>${user.name}</span>`;
